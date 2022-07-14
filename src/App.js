@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-function App() {
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/home";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import AddRecipe from "./pages/addRecipe";
+import Profile from "./pages/profile";
+import NotFound from "./pages/notFound";
+import Detail from "./pages/detailRecipe";
+import axios from "axios";
+
+export default function App() {
+  const ProfileContext = React.createContext(null);
+
+  axios.interceptors.request.use(
+    function (config) {
+      if (localStorage.getItem("token")) {
+        config.headers = {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        };
+      }
+      return config;
+    },
+    function (error) {
+      // Do something with request error
+      return Promise.reject(error);
+    }
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ProfileContext.Provider value="dark">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" />
+          <Route index element={<Home />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="addRecipe" element={<AddRecipe />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="detail/:recipeId" element={<Detail />} />
+        </Routes>
+      </BrowserRouter>
+    </ProfileContext.Provider>
   );
 }
-
-export default App;
