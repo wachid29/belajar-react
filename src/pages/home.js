@@ -10,9 +10,21 @@ function Home() {
   const [listPhoto, setListPhoto] = React.useState([]);
   const [name, setName] = React.useState("");
   const UserConsumer = React.useContext(ProfileContext);
+  const [search, setSearch] = React.useState(null);
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearch(event.target[0].value);
+  };
 
   React.useEffect(() => {
-    if (UserConsumer) {
+    if (search !== null) {
+      window.location.href = `/search/${search}`;
+    }
+  });
+
+  React.useEffect(() => {
+    if (UserConsumer !== null) {
       setName(UserConsumer.name);
     } else {
       setName("");
@@ -26,9 +38,14 @@ function Home() {
   });
 
   React.useEffect(() => {
-    axios.get("http://localhost:8001/recipe/get5data").then((res) => {
-      setListPhoto(res.data);
-    });
+    axios
+      .get("http://localhost:8001/recipe/get5data")
+      .then((res) => {
+        setListPhoto(res.data);
+      })
+      .catch((error) => {
+        console.log(error?.response?.data);
+      });
   }, []);
 
   return (
@@ -72,11 +89,12 @@ function Home() {
                       <h1>Discover Recipe & Delicious Food</h1>
                     </div>
                     <div>
-                      <Form className="box-position">
+                      <Form onSubmit={handleSearch} className="box-position">
                         <Form.Control
                           type="text"
                           placeholder="Search Recipe"
                           className="paragraph"
+                          // onChange={(e) => setSearch(e.target.value)}
                         />
                       </Form>
                     </div>

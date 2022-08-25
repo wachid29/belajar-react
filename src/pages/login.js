@@ -10,6 +10,7 @@ function Login() {
   const [isError, setIsError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+    
   React.useEffect(() => {
     if (localStorage.getItem("token")) {
       window.location.href = "/";

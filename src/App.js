@@ -10,6 +10,7 @@ import Profile from "./pages/profile";
 import NotFound from "./pages/notFound";
 import Detail from "./pages/detailRecipe";
 import axios from "axios";
+import Search from "./pages/searchRecipe";
 
 export default function App() {
   const ProfileContext = React.createContext(null);
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="addRecipe" element={<AddRecipe />} />
           <Route path="profile" element={<Profile />} />
           <Route path="detail/:recipeId" element={<Detail />} />
+          <Route path="search/:recipeTitle" element={<Search />} />
         </Routes>
       </BrowserRouter>
     </ProfileContext.Provider>

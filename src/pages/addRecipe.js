@@ -131,12 +131,13 @@ export default function AddRecipe() {
                   />
                 </Form.Group>
                 <Form.Group
-                  className="mb-3"
+                  className="mb-3 table-box"
                   controlId="exampleForm.ControlTextarea1"
                 >
                   <Form.Control
                     as="textarea"
                     placeholder="Ingredient"
+                    className="table-box"
                     onChange={(e) => setIngredients(e.target.value)}
                   />
                 </Form.Group>

@@ -60,6 +60,19 @@
     color: #3F3A3A;
 }
 
+.title-recipe{
+  font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 36px;
+    display: flex;
+   
+    align-items: center;
+    text-transform: capitalize;
+  
+    color: #2E266F;
+}
+
 .flex-right-horizontal{
   display: flex;
   justify-content:flex-end;
@@ -181,3 +194,37 @@
 width: 300px;
   height: 200px;
 }
+
+.detail-recipe{
+  width: 600px;
+    height: 400px;
+    border-radius: 10px
+}
+
+.no-border{
+  border: none;
+}
+
+.vidio-button{
+  background-color: #EFC81A;
+  width: 180px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.vidio-image{
+  width: 20px;
+  height: 18px;
+}
+
+.table-box{
+  
+    height: 220px;
+}
+
+.comment-user-photo{
+  width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+

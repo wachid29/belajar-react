@@ -72,6 +72,13 @@ function Profile() {
                     alt="Card image"
                   />
                 </Card>
+                <Card className="content ">
+                  <Card.Img
+                    className="content"
+                    src={item?.photo_profile}
+                    alt="Card image"
+                  />
+                </Card>
               </div>
               <div className="flex-center-horizontal mt-3 border-bottom">
                 <h5>{item?.name}</h5>
