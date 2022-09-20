@@ -11,37 +11,46 @@ import {
   Alert,
 } from "react-bootstrap";
 import vector from "../images/Vector.png";
-import { ProfileContext } from "../context";
+import { useSelector } from "react-redux";
 
 function DetailRecipe() {
   const [detailRecipe, setdetailRecipe] = React.useState([]);
   const [comment, setcomment] = React.useState([]);
   const [addComment, setAddComment] = React.useState("");
-  const UserConsumer = React.useContext(ProfileContext);
   const [isError, setIsError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
   const [isSucces, setisSucces] = React.useState(false);
   const [succesMsg, setSuccesMsg] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const { token, profile } = useSelector((state) => state?.auth);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   // Get the userId param from the URL.
   const { recipeId } = useParams();
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:8001/commentbyrecipe?id=${recipeId}`)
+      .get(
+        `${process.env.REACT_APP_URL_API}/commentbyrecipe?id=${recipeId}`,
+        config
+      )
       .then((res) => {
-        setdetailRecipe(res.data.recipe);
-        setcomment(res.data.comment);
+        console.log(res?.data);
+        setdetailRecipe(res?.data?.recipe);
+        setcomment(res?.data?.comment);
       });
-  });
+  }, []);
 
   const handleComment = () => {
     setIsLoading(true);
     axios
-      .post("http://localhost:8001/comment/add", {
+      .post(`${process.env.REACT_APP_URL_API}/comment/add`, {
         comment: addComment,
-        user_id: UserConsumer.id,
+        user_id: profile?.id,
         recipe_id: recipeId,
       })
       .then((res) => {

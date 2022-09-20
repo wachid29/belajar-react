@@ -3,14 +3,18 @@ import { Row, Col, Container, Form, Button, Alert } from "react-bootstrap";
 import React from "react";
 import axios from "axios";
 import image from "../images/backround.png";
+import { useDispatch } from "react-redux";
+import * as Type from "../redux/auth/type";
 
 function Login() {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isError, setIsError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-    
+
   React.useEffect(() => {
     if (localStorage.getItem("token")) {
       window.location.href = "/";
@@ -19,14 +23,19 @@ function Login() {
   const handlelogin = () => {
     setIsLoading(true);
     axios
-      .post("http://localhost:8001/login", {
+      .post(`${process.env.REACT_APP_URL_API}/login`, {
         email: email,
         password: password,
       })
       .then((res) => {
         setIsError(false);
-        localStorage.setItem("token", res?.data?.token);
-        localStorage.setItem("user", JSON.stringify(res?.data?.user));
+        dispatch({
+          type: Type.SET_AUTH,
+          payload: {
+            token: res?.data?.token,
+            user: res?.data?.user,
+          },
+        });
         window.location.href = "/";
       })
       .catch((error) => {

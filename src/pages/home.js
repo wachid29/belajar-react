@@ -4,13 +4,18 @@ import { Container, Row, Col, Form, Card, Button } from "react-bootstrap";
 //import CardImage from "../molekul/cardImage";
 import image1 from "../images/—Pngtree—delicious food_568171 1.png";
 //import image2 from "../—Pngtree—lettuce_1175257 1.png";
-import { ProfileContext } from "../context";
-
+import { useSelector } from "react-redux";
 function Home() {
   const [listPhoto, setListPhoto] = React.useState([]);
   const [name, setName] = React.useState("");
-  const UserConsumer = React.useContext(ProfileContext);
   const [search, setSearch] = React.useState(null);
+  const { token, profile } = useSelector((state) => state?.auth);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -23,23 +28,21 @@ function Home() {
     }
   });
 
+  // React.useEffect(() => {
+  //   if (!localStorage.getItem("token")) {
+  //     window.location.href = "/login";
+  //   }
+  // });
+
   React.useEffect(() => {
-    if (UserConsumer !== null) {
-      setName(UserConsumer.name);
-    } else {
-      setName("");
+    if (profile) {
+      setName(profile?.name);
     }
   }, []);
 
   React.useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      window.location.href = "/login";
-    }
-  });
-
-  React.useEffect(() => {
     axios
-      .get("http://localhost:8001/recipe/get5data")
+      .get(`${process.env.REACT_APP_URL_API}/recipe/get5data`, config)
       .then((res) => {
         setListPhoto(res.data);
       })

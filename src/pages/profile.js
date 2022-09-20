@@ -2,39 +2,47 @@ import "../App.css";
 import { Card, Row, Col, Container } from "react-bootstrap";
 import React from "react";
 import axios from "axios";
-import { ProfileContext } from "../context";
+import { useSelector, useDispatch } from "react-redux";
+import * as Type from "../redux/auth/type";
 
 function Profile() {
-  const [user, setUser] = React.useState([]);
-  const [recipe, setRecipe] = React.useState([]);
-  const UserConsumer = React.useContext(ProfileContext);
-
-  React.useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      window.location.href = "/login";
-    }
-  });
+  const [user, setUser] = React.useState();
+  const [recipe, setRecipe] = React.useState();
+  const { token, profile } = useSelector((state) => state?.auth);
+  const dispatch = useDispatch();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   React.useEffect(() => {
     axios
-      .post("http://localhost:8001/recipebyuser", {
-        id: UserConsumer.id,
-      })
+      .get(
+        `${process.env.REACT_APP_URL_API}/userdata/recipebyuser?id=${profile?.id}`,
+        config
+      )
       .then((res) => {
-        // setIsError(false);
-        // localStorage.setItem("token", res?.data?.token);
-        // localStorage.setItem("user", JSON.stringify(res?.data?.user));
-        // window.location.href = "/";
-        setUser(res.data.user);
-        setRecipe(res.data.recipe);
+        setUser(res?.data?.user);
+        setRecipe(res?.data?.recipe);
       })
       .catch((error) => {
-        // setIsLoading(false);
-        // setIsError(true);
-        // setErrorMsg(error?.response?.data);
         console.log("err", error);
       });
-  });
+  }, []);
+
+  const handleLogOut = () => {
+    dispatch({
+      type: Type.REMOVE_AUTH,
+    });
+    window.location.href = "/login";
+  };
+
+  // React.useEffect(() => {
+  //   if (!localStorage.getItem("token")) {
+  //     window.location.href = "/login";
+  //   }
+  // });
 
   return (
     <div className="App">
@@ -57,6 +65,15 @@ function Profile() {
                 Profile
               </a>
             </Col>
+            <Col md={{ span: 3, offset: 6 }}>
+              <h5
+                className="pages-link"
+                style={{ cursor: "pointer" }}
+                onClick={handleLogOut}
+              >
+                LOG OUT
+              </h5>
+            </Col>
           </Row>
         </Container>
       </div>
@@ -65,13 +82,6 @@ function Profile() {
           {user?.map((item) => (
             <Col md={{ span: 2, offset: 5 }} className="mb-4">
               <div className="flex-center-horizontal ">
-                <Card className="content ">
-                  <Card.Img
-                    className="content"
-                    src={item?.photo_profile}
-                    alt="Card image"
-                  />
-                </Card>
                 <Card className="content ">
                   <Card.Img
                     className="content"
@@ -98,20 +108,26 @@ function Profile() {
       </div>
       <div className="mt-3">
         <Row style={{ paddingLeft: 40, paddingRight: 40 }}>
-          {recipe?.map((item) => (
+          {recipe?.lenght === 0 ? (
             <Col xs={3} className="mb-4">
-              <Card className="text-dark content-recipe">
-                <Card.Img
-                  src={item?.image}
-                  alt="Card image"
-                  className="content-recipe"
-                />
-                <Card.ImgOverlay className="flex-bottom-vertical">
-                  <Card.Title>{item?.title_recipe}</Card.Title>
-                </Card.ImgOverlay>
-              </Card>
+              <div>recipe tidak ditemukan</div>
             </Col>
-          ))}
+          ) : (
+            recipe?.map((item) => (
+              <Col xs={3} className="mb-4">
+                <Card className="text-dark content-recipe">
+                  <Card.Img
+                    src={item?.image}
+                    alt="Card image"
+                    className="content-recipe"
+                  />
+                  <Card.ImgOverlay className="flex-bottom-vertical">
+                    <Card.Title>{item?.title_recipe}</Card.Title>
+                  </Card.ImgOverlay>
+                </Card>
+              </Col>
+            ))
+          )}
         </Row>
       </div>
       <div className="mt-5">

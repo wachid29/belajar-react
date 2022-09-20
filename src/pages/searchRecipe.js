@@ -11,7 +11,9 @@ function SearchRecipe() {
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:8001/recipe/find?title_recipe=${recipeTitle}`)
+      .get(
+        `${process.env.REACT_APP_URL_API}/recipe/find?title_recipe=${recipeTitle}`
+      )
       .then((res) => {
         setIsError(false);
         setListSearch(res.data.recipe);
