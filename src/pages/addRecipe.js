@@ -11,7 +11,7 @@ import {
 import React from "react";
 import axios from "axios";
 import iconPhoto from "../images/image.png";
-import { ProfileContext } from "../context";
+import { useSelector } from "react-redux";
 
 export default function AddRecipe() {
   const [title_recipe, setTitle_recipe] = React.useState("");
@@ -23,13 +23,19 @@ export default function AddRecipe() {
   const [isSucces, setisSucces] = React.useState(false);
   const [succesMsg, setSuccesMsg] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
-  const UserConsumer = React.useContext(ProfileContext);
+  const { token, profile } = useSelector((state) => state?.auth);
 
-  React.useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      window.location.href = "/login";
-    }
-  });
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  // React.useEffect(() => {
+  //   if (!localStorage.getItem("token")) {
+  //     window.location.href = "/login";
+  //   }
+  // });
 
   const handleUpload = (e) => {
     let uploadedImage = e.target.files[0];
@@ -47,15 +53,13 @@ export default function AddRecipe() {
       bodyFormData.append("image", image);
       bodyFormData.append("ingredients", ingredients);
       bodyFormData.append("vidio_step", vidio_step);
-      bodyFormData.append("user_id", UserConsumer.id);
-      axios({
-        method: "post",
-        url: "http://localhost:8001/recipe/add",
-        data: bodyFormData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      bodyFormData.append("user_id", profile?.id);
+      axios
+        .post(
+          `${process.env.REACT_APP_URL_API}/recipe/add`,
+          bodyFormData,
+          config
+        )
         .then((res) => {
           setIsError(false);
           setisSucces(true);
@@ -67,7 +71,6 @@ export default function AddRecipe() {
           setIsLoading(false);
           setIsError(true);
           setisSucces(false);
-          console.log(UserConsumer);
           setErrorMsg(error?.response?.data);
         });
     }
