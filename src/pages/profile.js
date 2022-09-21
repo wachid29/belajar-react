@@ -38,11 +38,11 @@ function Profile() {
     window.location.href = "/login";
   };
 
-  // React.useEffect(() => {
-  //   if (!localStorage.getItem("token")) {
-  //     window.location.href = "/login";
-  //   }
-  // });
+  React.useEffect(() => {
+    if (token === null) {
+      window.location.href = "/login";
+    }
+  });
 
   return (
     <div className="App">

@@ -31,11 +31,11 @@ export default function AddRecipe() {
     },
   };
 
-  // React.useEffect(() => {
-  //   if (!localStorage.getItem("token")) {
-  //     window.location.href = "/login";
-  //   }
-  // });
+  React.useEffect(() => {
+    if (token === null) {
+      window.location.href = "/login";
+    }
+  });
 
   const handleUpload = (e) => {
     let uploadedImage = e.target.files[0];

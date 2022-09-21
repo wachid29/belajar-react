@@ -8,11 +8,16 @@ function SearchRecipe() {
   const [listSearch, setListSearch] = React.useState([]);
   const [isError, setIsError] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState("");
+  const [filter, setFilter] = React.useState("DESC");
+
+  function handleAddrTypeChange(e) {
+    setFilter(e.target.value);
+  }
 
   React.useEffect(() => {
     axios
       .get(
-        `${process.env.REACT_APP_URL_API}/recipe/find?title_recipe=${recipeTitle}`
+        `${process.env.REACT_APP_URL_API}/recipe/find?title_recipe=${recipeTitle}&filter=${filter}`
       )
       .then((res) => {
         setIsError(false);
@@ -22,7 +27,7 @@ function SearchRecipe() {
         setIsError(true);
         setErrorMsg(error?.response?.data);
       });
-  });
+  }, [listSearch, recipeTitle]);
 
   return (
     <div className="App">
@@ -54,6 +59,26 @@ function SearchRecipe() {
       <Container>
         {isError ? <Alert variant="danger">{errorMsg}</Alert> : null}
         <Row>
+          <div className="d-flex justify-content-start mb-2">
+            <span>
+              <h5>Sort By:</h5>
+            </span>
+            <select
+              defaultValue={filter}
+              onChange={handleAddrTypeChange}
+              className="Default select example "
+              style={{
+                borderRadius: "10px",
+                marginLeft: "5px",
+                paddingBottom: "5px",
+              }}
+            >
+              <option selected value="DESC">
+                Newest
+              </option>
+              <option value="ASC">Latest</option>
+            </select>
+          </div>
           {listSearch?.map((item) => (
             <Col xs={4} className="mb-4">
               <Card className="text-dark">

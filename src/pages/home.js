@@ -9,13 +9,19 @@ function Home() {
   const [listPhoto, setListPhoto] = React.useState([]);
   const [name, setName] = React.useState("");
   const [search, setSearch] = React.useState(null);
-  const { token, profile } = useSelector((state) => state?.auth);
+  const { profile } = useSelector((state) => state?.auth);
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  // const config = {
+  //   headers: {
+  //     Authorization: `Bearer ${token}`,
+  //   },
+  // };
+
+  const [filter, setFilter] = React.useState("DESC");
+
+  function handleAddrTypeChange(e) {
+    setFilter(e.target.value);
+  }
 
   const handleSearch = (event) => {
     event.preventDefault();
@@ -28,12 +34,6 @@ function Home() {
     }
   });
 
-  // React.useEffect(() => {
-  //   if (!localStorage.getItem("token")) {
-  //     window.location.href = "/login";
-  //   }
-  // });
-
   React.useEffect(() => {
     if (profile) {
       setName(profile?.name);
@@ -42,14 +42,14 @@ function Home() {
 
   React.useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_URL_API}/recipe/get5data`, config)
+      .get(`${process.env.REACT_APP_URL_API}/recipe/get5data?filter=${filter}`)
       .then((res) => {
         setListPhoto(res.data);
       })
       .catch((error) => {
         console.log(error?.response?.data);
       });
-  }, []);
+  }, [listPhoto]);
 
   return (
     <div className="App">
@@ -97,7 +97,6 @@ function Home() {
                           type="text"
                           placeholder="Search Recipe"
                           className="paragraph"
-                          // onChange={(e) => setSearch(e.target.value)}
                         />
                       </Form>
                     </div>
@@ -105,9 +104,6 @@ function Home() {
                 </div>
               </Col>
               <Col xs={6}>
-                {/* <div className="flex-center-horizontal">
-                <img src={image2} alt="vegetable" className=" vegetable1" />
-              </div> */}
                 <div className="flex-center-horizontal">
                   <img src={image1} alt="vegetable" className="vegetable" />
                 </div>
@@ -119,6 +115,26 @@ function Home() {
                 <h1 className="sub-title mt-5 mb-5 "> New Recipe</h1>
               </div>
               <Row>
+                <div className="d-flex justify-content-start mb-2">
+                  <span>
+                    <h5>Sort By:</h5>
+                  </span>
+                  <select
+                    defaultValue={filter}
+                    onChange={handleAddrTypeChange}
+                    className="Default select example "
+                    style={{
+                      borderRadius: "10px",
+                      marginLeft: "5px",
+                      paddingBottom: "5px",
+                    }}
+                  >
+                    <option selected value="DESC">
+                      Newest
+                    </option>
+                    <option value="ASC">Latest</option>
+                  </select>
+                </div>
                 {listPhoto?.map((item) => (
                   <Col xs={4} className="mb-4">
                     <Card className="text-dark">
