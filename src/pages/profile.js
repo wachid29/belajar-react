@@ -51,17 +51,17 @@ function Profile() {
           <Row className="mb-4"></Row>
           <Row style={{ paddingLeft: 40 }}>
             <Col xs={1}>
-              <a href="http://localhost:3000" className="pages-link">
+              <a href="/package.json" className="pages-link">
                 Home
               </a>
             </Col>
             <Col xs={1}>
-              <a href="http://localhost:3000/addRecipe" className="pages-link">
+              <a href="/addRecipe" className="pages-link">
                 Add Recipe
               </a>
             </Col>
             <Col xs={1}>
-              <a href="http://localhost:3000/profile" className="pages-link">
+              <a href="/profile" className="pages-link">
                 Profile
               </a>
             </Col>
