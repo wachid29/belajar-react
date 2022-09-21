@@ -18,7 +18,7 @@ function Home() {
   // };
 
   const [filter, setFilter] = React.useState("DESC");
-  console.log(listPhoto);
+
   function handleAddrTypeChange(e) {
     setFilter(e.target.value);
   }
