@@ -80,22 +80,30 @@ function SearchRecipe() {
             </select>
           </div>
           {listSearch?.map((item) => (
-            <Col xs={4} className="mb-4">
-              <Card className="text-dark">
+            <Col xs={3} className="mb-4">
+              <Card>
                 <Card.Img
                   src={item?.image}
                   alt="Card image"
                   className="photo-recipe"
+                  style={{
+                    objectFit: "cover",
+                    boxShadow: "2px 2px 5px 1px rgba(0,0,0,0.12)",
+                    width: "100%",
+                  }}
                 />
-                <Card.ImgOverlay className="flex-bottom-vertical">
+                <Card.ImgOverlay
+                  className="flex-bottom-vertical"
+                  style={{
+                    color: "#FFFFFF",
+                    textShadow: "1px 2px 3px rgba(0,0,0,0.42)",
+                  }}
+                >
                   <Card.Title>{item?.title_recipe}</Card.Title>
                 </Card.ImgOverlay>
               </Card>
               <div className="mt-2 ">
-                <a
-                  href={"http://localhost:3000/detail/" + item?.id}
-                  className="pages-link"
-                >
+                <a href={"/detail/" + item?.id} className="pages-link">
                   <Button className="paragraph" variant="warning">
                     Learn More
                   </Button>

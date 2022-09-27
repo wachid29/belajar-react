@@ -51,7 +51,7 @@ function Profile() {
           <Row className="mb-4"></Row>
           <Row style={{ paddingLeft: 40 }}>
             <Col xs={1}>
-              <a href="/package.json" className="pages-link">
+              <a href="/" className="pages-link">
                 Home
               </a>
             </Col>

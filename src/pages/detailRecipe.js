@@ -112,9 +112,9 @@ function DetailRecipe() {
                 className="flex-center-horizontal "
                 style={{ paddingLeft: 40, paddingRight: 40 }}
               >
-                <Col xs={10} className="mb-3 ">
+                <Col xs={10} className="mb-1">
                   <Card className="text-dark no-border">
-                    <Card.Body className="sub-title">Ingredient</Card.Body>
+                    <Card.Body className="sub-title">Ingredients</Card.Body>
                   </Card>
                 </Col>
               </Row>
@@ -122,8 +122,8 @@ function DetailRecipe() {
                 className="mb-5"
                 style={{ paddingLeft: 50, paddingRight: 40 }}
               >
-                <Col md={{ span: 2, offset: 1 }} className="mb-5">
-                  <Card className="text-dark ">
+                <Col xs={{ span: 6, offset: 1 }} className="mb-5">
+                  <Card className="text-dark no-border">
                     <Card.Body>
                       <p
                         className="d-grid gap-5"
