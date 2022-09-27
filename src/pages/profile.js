@@ -114,14 +114,25 @@ function Profile() {
             </Col>
           ) : (
             recipe?.map((item) => (
-              <Col xs={3} className="mb-4">
-                <Card className="text-dark content-recipe">
+              <Col xs={3}>
+                <Card className="text-dark">
                   <Card.Img
                     src={item?.image}
                     alt="Card image"
-                    className="content-recipe"
+                    className="photo-recipe"
+                    style={{
+                      objectFit: "cover",
+                      boxShadow: "2px 2px 5px 1px rgba(0,0,0,0.12)",
+                      width: "100%",
+                    }}
                   />
-                  <Card.ImgOverlay className="flex-bottom-vertical">
+                  <Card.ImgOverlay
+                    className="flex-bottom-vertical"
+                    style={{
+                      color: "#FFFFFF",
+                      textShadow: "1px 2px 3px rgba(0,0,0,0.42)",
+                    }}
+                  >
                     <Card.Title>{item?.title_recipe}</Card.Title>
                   </Card.ImgOverlay>
                 </Card>
