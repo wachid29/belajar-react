@@ -126,37 +126,37 @@ REACT_APP_URL_API = https://intermediate-backend-pijar.herokuapp.com
 <table>
  
   <tr>
-    <td><image src="" alt="login" width=100%></td>
-    <td><image src="" alt="register" width=100%/></td>
+    <td><image src="https://res.cloudinary.com/dhdngrjzr/image/upload/v1664251172/profile-user/nodtrmvb6fbhpnxbuwuk.jpg" alt="login" width=100%></td>
+    <td><image src="https://res.cloudinary.com/dhdngrjzr/image/upload/v1664251201/profile-user/rpitrjbyxolr1hk57kij.jpg" alt="register" width=100%/></td>
   </tr>
    <tr>
     <td>Login Page</td>
     <td>Register Page</td>
   </tr>
   <tr>
-    <td><image src="" alt="home" width=100%></td>
-    <td><image src="" alt="profile" width=100%/></td>
+    <td><image src="https://res.cloudinary.com/dhdngrjzr/image/upload/v1664251156/profile-user/odxgukbazzo7f0jnipne.jpg" alt="home" width=100%></td>
+    <td><image src="https://res.cloudinary.com/dhdngrjzr/image/upload/v1664251183/profile-user/kwqmyrc0zu3ilrjzklwo.jpg" alt="profile" width=100%/></td>
   </tr>
   <tr>
     <td>Home</td>
     <td>Profile</td>
   </tr>
     <tr>
-    <td><image src="" alt="add" width=100%></td>
-    <td><image src="" alt="edit" width=100%/></td>
+    <td><image src="https://res.cloudinary.com/dhdngrjzr/image/upload/v1664251127/profile-user/q0xmn8vxmpsrrlimqxrw.jpg" alt="add recipe" width=100%></td>
+    <td><image src="https://res.cloudinary.com/dhdngrjzr/image/upload/v1664251141/profile-user/g6xjaemotpd11jvgucai.jpg" alt="detail" width=100%/></td>
   </tr>
   <tr>
     <td>Add Recipe</td>
-    <td>Edit Recipe</td>
+    <td>Detail Recipe</td>
   </tr>
   </tr>
     <tr>
-    <td><image src="" alt="add" width=100%></td>
-    <td><image src="" alt="edit" width=100%/></td>
+    <td><image src="https://res.cloudinary.com/dhdngrjzr/image/upload/v1664251481/profile-user/aq421lskqtfuksuruojd.jpg" alt="search" width=100%></td>
+   
   </tr>
   <tr>
-    <td>Detail Recipe</td>
-    <td>Detail Video</td>
+    <td>Search Recipe</td>
+    
   </tr>
 </table>
       
