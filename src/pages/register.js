@@ -138,7 +138,7 @@ function Register() {
                 <div className="flex-center-horizontal mt-4 ">
                   <p className="paragraph ">
                     Already have account?
-                    <a href="http://localhost:3000/login" className="card-link">
+                    <a href="/login" className="card-link">
                       Log in Here
                     </a>
                   </p>

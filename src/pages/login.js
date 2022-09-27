@@ -111,10 +111,7 @@ function Login() {
                 <div className="flex-center-horizontal mt-4 ">
                   <p className="paragraph">
                     Don't have an account?
-                    <a
-                      href="http://localhost:3000/register"
-                      className="card-link"
-                    >
+                    <a href="/register" className="card-link">
                       Sign Up
                     </a>
                   </p>
